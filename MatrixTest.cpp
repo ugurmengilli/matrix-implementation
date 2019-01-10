@@ -21,7 +21,7 @@ void ConstructorsTesting () {
 		system("read");
 		cout << endl;
 	}
-    /*
+    
 	cout << "Case 2: Creating a 2x4 matrix of zeros with the static Zeros:" << endl;
 	{
 		Matrix matrix = Matrix::Zeros(2, 4);
