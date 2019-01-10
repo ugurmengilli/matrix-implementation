@@ -135,7 +135,7 @@ void ToeplitzTesting () {
 		ToeplitzTestingHelper(column, 4, row, 3, expected);
 	}
 }
-/*
+
 void TransposeTesting () {
 	cout << "Testing the Transpose functions:" << endl;
 
@@ -154,7 +154,7 @@ void TransposeTesting () {
 		system("read");
 		cout << endl;
 	}
-
+    
 	cout << "Case 2: the non-static Transpose function" << endl;
 	{
 		// the same matrix as in ToeplitzTesting
@@ -351,9 +351,9 @@ int main () {
 			case '2':	AssignmentTesting();
 						break;
 			case '3':	ToeplitzTesting();
-						break;/*
-			case '4':	TransposeTesting();
 						break;
+			case '4':	TransposeTesting();
+						break;/*
 			case '5':	MultiplicationTesting();
 						break;
 			case '6':	RowColumnExchangeTesting();

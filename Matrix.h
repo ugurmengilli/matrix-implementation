@@ -28,10 +28,13 @@ public:
 	Matrix& operator= (const Matrix& rhs);
 	~Matrix ();
 
+    void Transpose();
+
     static Matrix& Ones(const int nOfRows, const int nOfCols);
     static void Print(const double* data, const int nOfRows, const int nOfCols);
     static Matrix& Toeplitz(const double* column, const int noOfRows,
                             const double* row, const int noOfColumns);
+    static Matrix& Transpose(const Matrix& matrix);
     static Matrix& Zeros(const int nOfRows, const int nOfCols);
     
     friend ostream& operator<<(ostream& os, const Matrix& m);

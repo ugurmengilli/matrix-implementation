@@ -72,6 +72,19 @@ int Matrix::GetIndex(const int rowIdx, const int columnIdx) const
     return 0;
 }
 
+void Matrix::Transpose()
+{
+    Matrix *transpose(new Matrix(Matrix::Transpose(*this)));
+
+    delete this->data;
+    size_t noOfElements = noOfColumns * noOfRows;
+    this->data = new double[noOfElements];
+
+    this->noOfRows = transpose->noOfRows;
+    this->noOfColumns = transpose->noOfColumns;
+    this->data = transpose->data;
+}
+
 // Protected members
 void Matrix::fill(double data)
 {
@@ -97,7 +110,7 @@ Matrix& Matrix::Ones(const int nOfRows, const int nOfCols)
 void Matrix::Print(const double* data, const int nOfRows, const int nOfCols)
 {
     Matrix m(nOfRows, nOfCols);
-    // Hack around const assignment to non-const pointer. This is still safe in this function since
+    // Const assignment to non-const pointer. This is still safe in this function since
     // we don't change the data but only print it.
     delete m.data;
     m.data = const_cast<double*>(data);
@@ -127,6 +140,24 @@ Matrix& Matrix::Toeplitz(const double* column, const int noOfRows, const double*
         }
     }
     return *toeplitz;
+}
+
+Matrix& Matrix::Transpose(const Matrix& matrix)
+{
+    size_t noOfColumns = matrix.noOfRows;
+    size_t noOfRows = matrix.noOfColumns;
+    Matrix *transpose(new Matrix(noOfRows, noOfColumns));
+
+    delete transpose->data;
+    size_t noOfElements = noOfColumns * noOfRows;
+    transpose->data = new double[noOfElements];
+
+    for (size_t i = 0; i < noOfColumns; i++) {
+        for (size_t j = 0; j < noOfRows; j++) {
+            transpose->data[i * noOfRows + j] = matrix.data[i + noOfColumns * j];
+        }
+    }
+    return *transpose;
 }
 
 Matrix& Matrix::Zeros(const int nOfRows, const int nOfCols)
