@@ -18,6 +18,7 @@ protected:
 	int noOfColumns;
 	double *data;
 
+    // Add for code reuse. However, it would be useful for as a public class function.
     void fill(double data);
     int GetIndex (const int rowIdx, const int columnIdx) const;
 
@@ -28,6 +29,9 @@ public:
 	~Matrix ();
 
     static Matrix& Ones(const int nOfRows, const int nOfCols);
+    static void Print(const double* data, const int nOfRows, const int nOfCols);
+    static Matrix& Toeplitz(const double* column, const int noOfRows,
+                            const double* row, const int noOfColumns);
     static Matrix& Zeros(const int nOfRows, const int nOfCols);
     
     friend ostream& operator<<(ostream& os, const Matrix& m);

@@ -53,15 +53,26 @@ void ConstructorsTesting () {
 		cout << endl;
 	}
 }
-/*
+
 void AssignmentTesting () {
 	cout << "Testing the assignment operator:" << endl;
 	cout << endl;
-	cout << "For you to design and implement by yourself" << endl;
-	cout << "Please think about how many different cases you should test" << endl;
+    cout << "The input matrix = " << endl;
+    Matrix matrix = Matrix::Ones(2, 4);
+    cout << matrix << endl;
+
+    cout << "The copy = " << endl;
+    Matrix copy = matrix;   // Copy constructor
+    cout << copy << endl;
+    cout << "Assigning a 3x3 zero matrix to the copy:" << endl;
+    copy = Matrix::Zeros(3, 3);
+    cout << copy << endl;
+    cout << "Check input matrix for changes:" << endl;
+    cout << matrix << endl;
+    cout << "Please think about how many different cases you should test" << endl;
 	cout << endl;
 }
-/*
+
 void ToeplitzTestingHelper (const double *column, const int noOfRows, const double *row, const int noOfColumns, const double *expected) {
 	cout << "The 1st column = " << endl;
 	Matrix::Print(column, noOfRows, 1);
@@ -76,7 +87,7 @@ void ToeplitzTestingHelper (const double *column, const int noOfRows, const doub
 	cout << "The matrix created by Matrix::Toeplitz = " << endl;
 	cout << toeplitz << endl;
 }
-/*
+
 void ToeplitzTesting () {
 	cout << "Testing the static function Matrix::Toeplitz:" << endl;
 
@@ -336,11 +347,11 @@ int main () {
 
         switch (choice) {
 			case '1':	ConstructorsTesting();
-						break;  /*
+						break;
 			case '2':	AssignmentTesting();
 						break;
 			case '3':	ToeplitzTesting();
-						break;
+						break;/*
 			case '4':	TransposeTesting();
 						break;
 			case '5':	MultiplicationTesting();
