@@ -351,6 +351,8 @@ int main () {
 			case '7':	OtherTesting();
 						break;
             //*/
+            default:
+                break;
 		}
 		cout << "Enter \'0\' to exit or \'1\' to choose another test" << endl;
 		cout << ">> ";
