@@ -7,6 +7,9 @@
 
 #ifndef MATRIX_H_
 #define MATRIX_H_
+#include <iostream>
+
+using namespace std;
 
 class Matrix {
 protected:
@@ -22,7 +25,8 @@ public:
 	Matrix (const Matrix& input);
 	Matrix& operator= (const Matrix& rhs);
 	~Matrix ();
-
+    
+    friend ostream& operator<<(ostream& os, const Matrix& m);
 };
 
 #endif /* MATRIX_H_ */

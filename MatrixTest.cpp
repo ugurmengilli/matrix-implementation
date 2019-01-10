@@ -9,7 +9,7 @@
 #include <cstdlib>
 
 using namespace std;
-/*/
+
 void ConstructorsTesting () {
 	cout << "Testing the Matrix constructors:" << endl;
 
@@ -21,7 +21,7 @@ void ConstructorsTesting () {
 		system("read");
 		cout << endl;
 	}
-
+    /*
 	cout << "Case 2: Creating a 2x4 matrix of zeros with the static Zeros:" << endl;
 	{
 		Matrix matrix = Matrix::Zeros(2, 4);
@@ -30,7 +30,7 @@ void ConstructorsTesting () {
 		system("read");
 		cout << endl;
 	}
-
+    /*
 	cout << "Case 3: Creating a 2x4 matrix of ones with the static Ones:" << endl;
 	{
 		Matrix matrix = Matrix::Ones(2, 4);
@@ -39,7 +39,7 @@ void ConstructorsTesting () {
 		system("read");
 		cout << endl;
 	}
-
+    /*
 	cout << "Case 4: Copying a 2x4 matrix of ones with the copy constructor:" << endl;
 	{
 		Matrix matrix = Matrix::Ones(2, 4);
@@ -52,6 +52,7 @@ void ConstructorsTesting () {
 		system("read");
 		cout << endl;
 	}
+    //*/
 }
 /*
 void AssignmentTesting () {
@@ -335,9 +336,8 @@ int main () {
 		cin >> choice;
 
         switch (choice) {
-            /*/
 			case '1':	ConstructorsTesting();
-						break;
+						break;  /*
 			case '2':	AssignmentTesting();
 						break;
 			case '3':	ToeplitzTesting();
@@ -349,8 +349,7 @@ int main () {
 			case '6':	RowColumnExchangeTesting();
 						break;
 			case '7':	OtherTesting();
-						break;
-            //*/
+						break;  //*/
             default:
                 break;
 		}
