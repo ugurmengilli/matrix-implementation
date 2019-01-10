@@ -110,9 +110,23 @@ void Matrix::Print(const double* data, const int nOfRows, const int nOfCols)
     m.data = NULL;
 }
 
-Matrix & Matrix::Toeplitz(const double* column, const int noOfRows, const double* row, const int noOfColumns)
+Matrix& Matrix::Toeplitz(const double* column, const int noOfRows, const double* row, const int noOfColumns)
 {
-    return Matrix::Zeros(noOfRows, noOfColumns);
+    Matrix *toeplitz(new Matrix(noOfRows, noOfColumns));
+    // Construct Toeplizt matrix:
+    delete toeplitz->data;
+    size_t noOfElements = noOfColumns * noOfRows;
+    toeplitz->data = new double[noOfElements];
+
+    for (int i = 0; i < noOfColumns; i++) {
+        for (int j = 0; j < noOfRows; j++) {
+            if ((j - i) >= 0)
+                toeplitz->data[i * noOfRows + j] = column[j - i];
+            else
+                toeplitz->data[i * noOfRows + j] = row[i - j];
+        }
+    }
+    return *toeplitz;
 }
 
 Matrix& Matrix::Zeros(const int nOfRows, const int nOfCols)
