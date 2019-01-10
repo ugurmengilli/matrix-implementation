@@ -30,7 +30,7 @@ void ConstructorsTesting () {
 		system("read");
 		cout << endl;
 	}
-    /*
+    
 	cout << "Case 3: Creating a 2x4 matrix of ones with the static Ones:" << endl;
 	{
 		Matrix matrix = Matrix::Ones(2, 4);
@@ -39,7 +39,7 @@ void ConstructorsTesting () {
 		system("read");
 		cout << endl;
 	}
-    /*
+    
 	cout << "Case 4: Copying a 2x4 matrix of ones with the copy constructor:" << endl;
 	{
 		Matrix matrix = Matrix::Ones(2, 4);
@@ -52,7 +52,6 @@ void ConstructorsTesting () {
 		system("read");
 		cout << endl;
 	}
-    //*/
 }
 /*
 void AssignmentTesting () {

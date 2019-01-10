@@ -27,6 +27,7 @@ public:
 	Matrix& operator= (const Matrix& rhs);
 	~Matrix ();
 
+    static Matrix& Ones(const int nOfRows, const int nOfCols);
     static Matrix& Zeros(const int nOfRows, const int nOfCols);
     
     friend ostream& operator<<(ostream& os, const Matrix& m);

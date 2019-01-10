@@ -76,6 +76,13 @@ void Matrix::fill(double data)
 }
 
 // Static members
+Matrix& Matrix::Ones(const int nOfRows, const int nOfCols)
+{
+    Matrix *m = new Matrix(nOfRows, nOfCols);
+    m->fill(1);
+    return *m;
+}
+
 Matrix& Matrix::Zeros(const int nOfRows, const int nOfCols)
 {
     return *(new Matrix(nOfRows, nOfCols));
