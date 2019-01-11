@@ -65,12 +65,10 @@ void AssignmentTesting () {
     Matrix copy = matrix;   // Copy constructor
     cout << copy << endl;
     cout << "Assigning a 3x3 zero matrix to the copy:" << endl;
-    copy = Matrix::Zeros(3, 3);
+    copy = Matrix::Zeros(3, 3);     // Assignment operation. Performs deep copy
     cout << copy << endl;
     cout << "Check input matrix for changes:" << endl;
-    cout << matrix << endl;
-    cout << "Please think about how many different cases you should test" << endl;
-	cout << endl;
+    cout << matrix << endl;  // Therefore, any change to the copy does not affect original matrix.
 }
 
 void ToeplitzTestingHelper (const double *column, const int noOfRows, const double *row, const int noOfColumns, const double *expected) {
@@ -266,7 +264,7 @@ void RowColumnExchangeTesting () {
 		cout << endl;
 	}
 }
-/*
+
 void OtherTesting () {
 	cout << "Testing the miscellaneous functions:" << endl;
 
@@ -282,7 +280,7 @@ void OtherTesting () {
 		system("read");
 		cout << endl;
 	}
-
+    
 	cout << "The function that sets every entry to one" << endl;
 	{
 		Matrix zeros = Matrix::Zeros(2, 4);
@@ -295,7 +293,7 @@ void OtherTesting () {
 		system("read");
 		cout << endl;
 	}
-
+    
 	cout << "Find out the number of rows and columns" << endl;
 	{
 		Matrix zeros = Matrix::Zeros(2, 4);
@@ -308,7 +306,7 @@ void OtherTesting () {
 		system("read");
 		cout << endl;
 	}
-
+    
 	cout << "Find out the value of a particular entry" << endl;
 	{
 		// the same matrix as in ToeplitzTesting
@@ -326,9 +324,8 @@ void OtherTesting () {
 		system("read");
 		cout << endl;
 	}
-
 }
-//*/
+
 int main () {
 
 	for (;;) {
@@ -356,9 +353,9 @@ int main () {
 			case '5':	MultiplicationTesting();
 						break;
 			case '6':	RowColumnExchangeTesting();
-						break;/*
+						break;
 			case '7':	OtherTesting();
-						break;  //*/
+						break;
             default:
                 break;
 		}

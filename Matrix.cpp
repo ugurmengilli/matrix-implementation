@@ -95,7 +95,7 @@ ostream& operator<<(ostream& os, const Matrix& m)
 
 int Matrix::GetIndex(const int rowIdx, const int columnIdx) const
 {
-    return 0;
+    return rowIdx + columnIdx * noOfRows;
 }
 
 Matrix& Matrix::ExchangeColumns(const int col1, const int col2, const int row1, const int row2)
@@ -134,6 +134,26 @@ Matrix& Matrix::ExchangeRows(const int row1, const int row2)
     return *this;
 }
 
+double Matrix::GetEntry(const int rowIdx, const int columnIdx) const
+{
+    return data[GetIndex(rowIdx, columnIdx)];
+}
+
+int Matrix::GetNoOfColumns() const
+{
+    return noOfColumns;
+}
+
+int Matrix::GetNoOfRows() const
+{
+    return noOfRows;
+}
+
+void Matrix::Ones()
+{
+    fill(1);
+}
+
 void Matrix::Transpose()
 {
     Matrix *transpose(new Matrix(Matrix::Transpose(*this)));
@@ -145,6 +165,11 @@ void Matrix::Transpose()
     this->noOfRows = transpose->noOfRows;
     this->noOfColumns = transpose->noOfColumns;
     this->data = transpose->data;
+}
+
+void Matrix::Zeros()
+{
+    fill(0);
 }
 
 // Protected members

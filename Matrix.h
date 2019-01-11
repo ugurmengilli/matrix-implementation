@@ -34,7 +34,12 @@ public:
     Matrix& ExchangeColumns(const int col1, const int col2);
     Matrix& ExchangeRows(const int row1, const int row2, const int col1, const int col2);
     Matrix& ExchangeRows(const int row1, const int row2);
+    double GetEntry(const int rowIdx, const int columnIdx) const;
+    int GetNoOfColumns() const;
+    int GetNoOfRows() const;
+    void Ones();
     void Transpose();
+    void Zeros();
 
     static Matrix& Ones(const int nOfRows, const int nOfCols);
     static void Print(const double* data, const int nOfRows, const int nOfCols);
