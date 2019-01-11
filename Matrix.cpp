@@ -36,6 +36,32 @@ Matrix::~Matrix()
     delete this->data;
 }
 
+Matrix& Matrix::operator*(const Matrix& rhs) const
+{
+    Matrix *result(new Matrix(noOfRows, rhs.noOfColumns));
+
+    for (size_t i = 0; i < noOfRows; i++) {
+        for (size_t j = 0; j < rhs.noOfColumns; j++) {
+            for (size_t k = 0; k < rhs.noOfRows; k++) {
+                result->data[j * result->noOfRows + i] +=
+                    data[k * noOfRows + i] * rhs.data[j * rhs.noOfRows + k];
+            }
+        }
+    }
+    return *result;
+}
+
+Matrix& Matrix::operator*=(const Matrix& rhs)
+{
+    Matrix *result(new Matrix(*this * rhs));
+    this->noOfColumns = result->noOfColumns;
+    this->noOfRows = result->noOfRows;
+    this->data = result->data;
+    result->data = NULL;
+    
+    return *this;
+}
+
 Matrix& Matrix::operator=(const Matrix& rhs)
 {
     this->noOfRows = rhs.noOfRows;
@@ -53,7 +79,7 @@ Matrix& Matrix::operator=(const Matrix& rhs)
     return *this;
 }
 
-ostream & operator<<(ostream& os, const Matrix& m)
+ostream& operator<<(ostream& os, const Matrix& m)
 {
     // Set display precision of the elements
     os.precision(4);

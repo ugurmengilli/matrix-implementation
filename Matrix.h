@@ -25,6 +25,8 @@ protected:
 public:
 	Matrix (const int noOfRows, const int noOfCols);
 	Matrix (const Matrix& input);
+    Matrix& operator* (const Matrix& rhs) const;
+    Matrix & operator*=(const Matrix & rhs);
 	Matrix& operator= (const Matrix& rhs);
 	~Matrix ();
 

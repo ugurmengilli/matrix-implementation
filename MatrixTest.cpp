@@ -172,7 +172,7 @@ void TransposeTesting () {
 	}
 
 }
-/*
+
 void MultiplicationTesting () {
 	cout << "Testing the multiplication functions:" << endl;
 
@@ -200,7 +200,7 @@ void MultiplicationTesting () {
 		system("read");
 		cout << endl;
 	}
-
+    
 	cout << "Case 2: the member multiplication function" << endl;
 	{
 		// the same matrix as in ToeplitzTesting
@@ -353,9 +353,9 @@ int main () {
 			case '3':	ToeplitzTesting();
 						break;
 			case '4':	TransposeTesting();
-						break;/*
-			case '5':	MultiplicationTesting();
 						break;
+			case '5':	MultiplicationTesting();
+						break;/*
 			case '6':	RowColumnExchangeTesting();
 						break;
 			case '7':	OtherTesting();
