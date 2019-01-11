@@ -228,7 +228,7 @@ void MultiplicationTesting () {
 	}
 
 }
-/*
+
 void RowColumnExchangeTesting () {
 	cout << "Testing the Row or Column Exchange functions:" << endl;
 
@@ -248,7 +248,7 @@ void RowColumnExchangeTesting () {
 		system("read");
 		cout << endl;
 	}
-
+    
 	cout << "Case 2: the column exchange function" << endl;
 	{
 		// the same matrix as in ToeplitzTesting
@@ -265,7 +265,6 @@ void RowColumnExchangeTesting () {
 		system("read");
 		cout << endl;
 	}
-
 }
 /*
 void OtherTesting () {
@@ -355,9 +354,9 @@ int main () {
 			case '4':	TransposeTesting();
 						break;
 			case '5':	MultiplicationTesting();
-						break;/*
-			case '6':	RowColumnExchangeTesting();
 						break;
+			case '6':	RowColumnExchangeTesting();
+						break;/*
 			case '7':	OtherTesting();
 						break;  //*/
             default:

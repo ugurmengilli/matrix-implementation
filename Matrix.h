@@ -30,6 +30,10 @@ public:
 	Matrix& operator= (const Matrix& rhs);
 	~Matrix ();
 
+    Matrix& ExchangeColumns(const int col1, const int col2, const int row1, const int row2);
+    Matrix& ExchangeColumns(const int col1, const int col2);
+    Matrix& ExchangeRows(const int row1, const int row2, const int col1, const int col2);
+    Matrix& ExchangeRows(const int row1, const int row2);
     void Transpose();
 
     static Matrix& Ones(const int nOfRows, const int nOfCols);
