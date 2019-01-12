@@ -24,6 +24,18 @@ SquareMatrix::~SquareMatrix()
 {
 }
 
+SquareMatrix & SquareMatrix::TriL() const
+{
+    SquareMatrix* result(new SquareMatrix(noOfColumns));
+
+    // Copy the upper triangle with the diagonal.
+    for (size_t i = 0; i < noOfColumns; i++) {
+        for (size_t j = i; j < noOfRows; j++)
+            result->data[result->GetIndex(j, i)] = this->GetEntry(j, i);
+    }
+    return *result;
+}
+
 SquareMatrix& SquareMatrix::TriU() const
 {
     SquareMatrix* result(new SquareMatrix(noOfColumns));

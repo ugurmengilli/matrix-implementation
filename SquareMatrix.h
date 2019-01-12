@@ -12,6 +12,7 @@ public:
     ~SquareMatrix();
 
     SquareMatrix& TriU() const;
+    SquareMatrix& TriL() const;
 
     static SquareMatrix& Identity(const int dimension);
     static SquareMatrix& Ones(const int dimension);

@@ -443,6 +443,11 @@ void OtherSquareTesting() {
     cout << "The original matrix = " << endl << toeplitz << endl;
     cout << "Upper trianle = " << endl << toeplitz.TriU() << endl;
 
+    cout << "Get lower triangle of square matrix:" << endl;
+    cout << "The original matrix = " << endl << toeplitz << endl;
+    cout << "Upper trianle = " << endl << toeplitz.TriL() << endl;
+
+
 }
 
 int main () {
