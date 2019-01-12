@@ -5,7 +5,7 @@
  */
 
 #include "Matrix.h"
-#include <iostream>
+#include "SquareMatrix.h"
 #include <cstdlib>
 
 using namespace std;
@@ -13,16 +13,24 @@ using namespace std;
 void ConstructorsTesting () {
 	cout << "Testing the Matrix constructors:" << endl;
 
-	cout << "Case 1: Creating a 2x4 matrix of zeros with the standard constructor:" << endl;
-	{
-		Matrix matrix(2, 4);
-		cout << matrix << endl;
-		cout << "Press any key to continue ..." << flush;
-		system("read");
-		cout << endl;
-	}
+	cout << "Case 1.1: Creating a 2x4 matrix of zeros with the standard constructor:" << endl;
+    {
+        Matrix matrix(2, 4);
+        cout << matrix << endl;
+        cout << "Press any key to continue ..." << flush;
+        system("read");
+        cout << endl;
+    }
+    cout << "Case 1.2: Creating a 4x4 square matrix of zeros with the standard constructor:" << endl;
+    {
+        SquareMatrix sqmatrix(4);
+        cout << sqmatrix << endl;
+        cout << "Press any key to continue ..." << flush;
+        system("read");
+        cout << endl;
+    }
     
-	cout << "Case 2: Creating a 2x4 matrix of zeros with the static Zeros:" << endl;
+	cout << "Case 2.1: Creating a 2x4 matrix of zeros with the static Zeros:" << endl;
 	{
 		Matrix matrix = Matrix::Zeros(2, 4);
 		cout << matrix << endl;
@@ -30,8 +38,16 @@ void ConstructorsTesting () {
 		system("read");
 		cout << endl;
 	}
-    
-	cout << "Case 3: Creating a 2x4 matrix of ones with the static Ones:" << endl;
+    cout << "Case 2.2: Creating a 4x4 matrix of zeros with the static Zeros:" << endl;
+    {
+        SquareMatrix sqmatrix = SquareMatrix::Zeros(4);
+        cout << sqmatrix << endl;
+        cout << "Press any key to continue ..." << flush;
+        system("read");
+        cout << endl;
+    }
+
+	cout << "Case 3.1: Creating a 2x4 matrix of ones with the static Ones:" << endl;
 	{
 		Matrix matrix = Matrix::Ones(2, 4);
 		cout << matrix << endl;
@@ -39,8 +55,24 @@ void ConstructorsTesting () {
 		system("read");
 		cout << endl;
 	}
+    cout << "Case 3.2: Creating a 4x4 matrix of ones with the static Ones:" << endl;
+    {
+        SquareMatrix sqmatrix = SquareMatrix::Ones(4);
+        cout << sqmatrix << endl;
+        cout << "Press any key to continue ..." << flush;
+        system("read");
+        cout << endl;
+    }
+    cout << "Case 3.3: Creating a 4x4 identity matrix of ones with the static Identity:" << endl;
+    {
+        SquareMatrix eye = SquareMatrix::Identity(4);
+        cout << eye << endl;
+        cout << "Press any key to continue ..." << flush;
+        system("read");
+        cout << endl;
+    }
     
-	cout << "Case 4: Copying a 2x4 matrix of ones with the copy constructor:" << endl;
+	cout << "Case 4.1: Copying a 2x4 matrix of ones with the copy constructor:" << endl;
 	{
 		Matrix matrix = Matrix::Ones(2, 4);
 		cout << "The input matrix = " << endl;
@@ -52,6 +84,18 @@ void ConstructorsTesting () {
 		system("read");
 		cout << endl;
 	}
+    cout << "Case 4.2: Copying a 4x4 matrix of ones with the copy constructor:" << endl;
+    {
+        SquareMatrix matrix = SquareMatrix::Identity(4);
+        cout << "The input matrix = " << endl;
+        cout << matrix << endl;
+        SquareMatrix copy = matrix;
+        cout << "The copy = " << endl;
+        cout << copy << endl;
+        cout << "Press any key to continue ..." << flush;
+        system("read");
+        cout << endl;
+    }
 }
 
 void AssignmentTesting () {
@@ -72,18 +116,38 @@ void AssignmentTesting () {
 }
 
 void ToeplitzTestingHelper (const double *column, const int noOfRows, const double *row, const int noOfColumns, const double *expected) {
-	cout << "The 1st column = " << endl;
-	Matrix::Print(column, noOfRows, 1);
-	cout << endl;
-	cout << "The 1st row = " << endl;
-	Matrix::Print(row, 1, noOfColumns);
-	cout << endl;
-	cout << "The matrix created by the toeplitz function in MATLAB = " << endl;
-	Matrix::Print(expected, noOfRows, noOfColumns);
-	cout << endl;
-	Matrix toeplitz = Matrix::Toeplitz(column, noOfRows, row, noOfColumns);
-	cout << "The matrix created by Matrix::Toeplitz = " << endl;
-	cout << toeplitz << endl;
+    if (noOfColumns != noOfRows)
+    {
+        cout << "Matrix class:" << endl;
+        cout << "The 1st column = " << endl;
+        Matrix::Print(column, noOfRows, 1);
+        cout << endl;
+        cout << "The 1st row = " << endl;
+        Matrix::Print(row, 1, noOfColumns);
+        cout << endl;
+        cout << "The matrix created by the toeplitz function in MATLAB = " << endl;
+        Matrix::Print(expected, noOfRows, noOfColumns);
+        cout << endl;
+        Matrix toeplitz = Matrix::Toeplitz(column, noOfRows, row, noOfColumns);
+        cout << "The matrix created by Matrix::Toeplitz = " << endl;
+        cout << toeplitz << endl;
+    }
+    else if (noOfRows == noOfColumns)
+    {
+        cout << "Square Matrix class:" << endl;
+        cout << "The 1st column = " << endl;
+        SquareMatrix::Print(column, noOfRows, 1);
+        cout << endl;
+        cout << "The 1st row = " << endl;
+        SquareMatrix::Print(row, 1, noOfColumns);
+        cout << endl;
+        cout << "The matrix created by the toeplitz function in MATLAB = " << endl;
+        SquareMatrix::Print(expected, noOfRows, noOfColumns);
+        cout << endl;
+        SquareMatrix toeplitz = SquareMatrix::Toeplitz(column, row, noOfColumns);
+        cout << "The matrix created by Matrix::Toeplitz = " << endl;
+        cout << toeplitz << endl;
+    }
 }
 
 void ToeplitzTesting () {
@@ -132,17 +196,33 @@ void ToeplitzTesting () {
 		double expected[12] = {2, 1, 0, -1, 0, 2, 1, 0, -1, 0, 2, 1};
 		ToeplitzTestingHelper(column, 4, row, 3, expected);
 	}
+
+    cout << "Case 4: When the number of columns is equal to the number of rows" << endl;
+    {
+        double column[4] = { 1, 2, 3, 4 };
+        double row[4] = { 4, 3, 2, 1 };
+        cout << "With two vectors:" << endl;
+        double expected1[16] = { 1, 2, 3, 4, 3, 1, 2, 3, 2, 3, 1, 2, 1, 2, 3, 1 };
+        ToeplitzTestingHelper(column, 4, row, 4, expected1);
+
+        cout << "With one vector:" << endl;
+        double expected2[16] = { 4, 3, 2, 1, 3, 4, 3, 2, 2, 3, 4, 3, 1, 2, 3, 4 };
+        ToeplitzTestingHelper(row, 4, row, 4, expected2);
+        cout << "Press any key to continue ..." << flush;
+        system("read");
+        cout << endl;
+    }
 }
 
 void TransposeTesting () {
 	cout << "Testing the Transpose functions:" << endl;
 
-	cout << "Case 1: the static Transpose function" << endl;
+	cout << "Case 1.1: the static Transpose function" << endl;
 	{
-		// the same matrix as in ToeplitzTesting
-		double column[4] = {2, 1, 0, -1};
-		double row[3] = {2, 0, -1};
-		Matrix matrix = Matrix::Toeplitz(column, 4, row, 3);
+        // the same matrix as in ToeplitzTesting
+        double column[4] = { 2, 1, 0, -1 };
+        double row[3] = { 2, 0, -1 };
+        Matrix matrix = Matrix::Toeplitz(column, 3, row, 4);
 		cout << "The original Matrix = " << endl;
 		cout << matrix << endl;
 		Matrix transpose = Matrix::Transpose(matrix);
@@ -152,8 +232,22 @@ void TransposeTesting () {
 		system("read");
 		cout << endl;
 	}
+    cout << "Case 1.2: the static Square Transpose function" << endl;
+    {
+        double column[4] = { 1, 2, 3, 4 };
+        double row[4] = { 4, 3, 2, 1 };
+        SquareMatrix matrix = SquareMatrix::Toeplitz(column, row, 4);
+        cout << "The original Matrix = " << endl;
+        cout << matrix << endl;
+        SquareMatrix transpose = SquareMatrix::Transpose(matrix);
+        cout << "The transposed version = " << endl;
+        cout << transpose << endl;
+        cout << "Press any key to continue ..." << flush;
+        system("read");
+        cout << endl;
+    }
     
-	cout << "Case 2: the non-static Transpose function" << endl;
+	cout << "Case 2.1: the non-static Transpose function" << endl;
 	{
 		// the same matrix as in ToeplitzTesting
 		double column[4] = {2, 1, 0, -1};
@@ -168,7 +262,21 @@ void TransposeTesting () {
 		system("read");
 		cout << endl;
 	}
-
+    cout << "Case 2.2: the non-static Square Transpose function" << endl;
+    {
+        // the same matrix as in ToeplitzTesting
+        double column[4] = { 1, 2, 3, 4 };
+        double row[4] = { 4, 3, 2, 1 };
+        SquareMatrix matrix = SquareMatrix::Toeplitz(column, row, 4);
+        cout << "The original Matrix = " << endl;
+        cout << matrix << endl;
+        matrix.Transpose();
+        cout << "The transposed version = " << endl;
+        cout << matrix << endl;
+        cout << "Press any key to continue ..." << flush;
+        system("read");
+        cout << endl;
+    }
 }
 
 void MultiplicationTesting () {
@@ -326,6 +434,17 @@ void OtherTesting () {
 	}
 }
 
+void OtherSquareTesting() {
+    double column[4] = { 1, 2, 3, 4 };
+    double row[4] = { 4, 3, 2, 1 };
+    SquareMatrix toeplitz = SquareMatrix::Toeplitz(column, row, 4);
+
+    cout << "Get upper triangle of square matrix:" << endl;
+    cout << "The original matrix = " << endl << toeplitz << endl;
+    cout << "Upper trianle = " << endl << toeplitz.TriU() << endl;
+
+}
+
 int main () {
 
 	for (;;) {
@@ -337,7 +456,8 @@ int main () {
 		cout << "  Enter \'5\' for the multiplication" << endl;
 		cout << "  Enter \'6\' for the Row or Column Exchange functions" << endl;
 		cout << "  Enter \'7\' for the other functions" << endl;
-		cout << ">> ";
+        cout << "  Enter \'8\' for the other SquareMatrix functions" << endl;
+        cout << ">> ";
 		char choice;
 		cin >> choice;
 
@@ -356,6 +476,8 @@ int main () {
 						break;
 			case '7':	OtherTesting();
 						break;
+            case '8':   OtherSquareTesting();
+                        break;
             default:
                 break;
 		}
