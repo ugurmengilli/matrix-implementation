@@ -100,37 +100,27 @@ int Matrix::GetIndex(const int rowIdx, const int columnIdx) const
 
 Matrix& Matrix::ExchangeColumns(const int col1, const int col2, const int row1, const int row2)
 {
-    if (row1 >= 0)
-        swap(data[row1 + col1 * noOfRows], data[row1 + col2 * noOfRows]);
-    if (row2 >= 0)
-        swap(data[row2 + col1 * noOfRows], data[row2 + col2 * noOfRows]);
+    for (size_t i = row1; i <= row2; i++)
+        swap(data[GetIndex(i, col1)], data[GetIndex(i, col2)]);
     return *this;
 }
 
 Matrix& Matrix::ExchangeColumns(const int col1, const int col2)
 {
-    for (size_t i = 0; i < noOfRows; i++)
-        // Exchange in only one row at a time:
-        ExchangeColumns(col1, col2, i, -1);
-
+    ExchangeColumns(col1, col2, 0, noOfRows - 1);
     return *this;
 }
 
 Matrix& Matrix::ExchangeRows(const int row1, const int row2, const int col1, const int col2)
 {
-    if (col1 >= 0)
-        swap(data[row1 + col1 * noOfRows], data[row2 + col1 * noOfRows]);
-    if (col2 >= 0)
-        swap(data[row1 + col2 * noOfRows], data[row2 + col2 * noOfRows]);
+    for (size_t i = col1; i <= col2; i++)
+        swap(data[GetIndex(row1, i)], data[GetIndex(row2, i)]);
     return *this;
 }
 
 Matrix& Matrix::ExchangeRows(const int row1, const int row2)
 {
-    for (size_t i = 0; i < noOfColumns; i++)
-        // Exchange in only one column at a time:
-        ExchangeRows(row1, row2, i, -1);
-
+    ExchangeRows(row1, row2, 0, noOfColumns - 1);
     return *this;
 }
 
