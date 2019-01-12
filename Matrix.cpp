@@ -18,6 +18,19 @@ Matrix::Matrix(const int nOfRows, const int nOfCols) :
     fill(0);
 }
 
+Matrix::Matrix(const int noOfRows, const int noOfCols, double* data) :
+    noOfRows(noOfRows),
+    noOfColumns(noOfCols),
+    data(NULL)
+{
+    // Set the size dynamically and initialize all elements with zeros
+    size_t noOfElements = noOfColumns * noOfRows;
+    this->data = new double[noOfElements];
+
+    for (size_t i = 0; i < noOfElements; i++)
+        this->data[i] = data[i];
+}
+
 Matrix::Matrix(const Matrix& input) :
     noOfRows(input.noOfRows),
     noOfColumns(input.noOfColumns),
@@ -100,7 +113,7 @@ int Matrix::GetIndex(const int rowIdx, const int columnIdx) const
 
 Matrix& Matrix::ExchangeColumns(const int col1, const int col2, const int row1, const int row2)
 {
-    for (size_t i = row1; i <= row2; i++)
+    for (int i = row1; i <= row2; i++)
         swap(data[GetIndex(i, col1)], data[GetIndex(i, col2)]);
     return *this;
 }
@@ -113,7 +126,7 @@ Matrix& Matrix::ExchangeColumns(const int col1, const int col2)
 
 Matrix& Matrix::ExchangeRows(const int row1, const int row2, const int col1, const int col2)
 {
-    for (size_t i = col1; i <= col2; i++)
+    for (int i = col1; i <= col2; i++)
         swap(data[GetIndex(row1, i)], data[GetIndex(row2, i)]);
     return *this;
 }
