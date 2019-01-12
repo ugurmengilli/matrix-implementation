@@ -11,6 +11,7 @@ public:
     SquareMatrix(const Matrix& input);
     ~SquareMatrix();
 
+    void LU(SquareMatrix& lmatrix, SquareMatrix& umatrix) const;
     SquareMatrix& TriU() const;
     SquareMatrix& TriL() const;
 

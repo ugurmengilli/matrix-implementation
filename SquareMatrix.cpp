@@ -24,14 +24,32 @@ SquareMatrix::~SquareMatrix()
 {
 }
 
-SquareMatrix & SquareMatrix::TriL() const
+void SquareMatrix::LU(SquareMatrix& lmatrix, SquareMatrix& umatrix) const
+{
+    // Apply the steps given in the Algorithm 2.1
+    umatrix = *this;
+    lmatrix = SquareMatrix::Identity(noOfColumns);
+
+    for (size_t k = 0; k < noOfColumns - 1; k++) {
+        for (size_t j = k + 1; j < noOfColumns; j++) {
+            lmatrix.data[GetIndex(j, k)] =
+                umatrix.data[GetIndex(j, k)] / umatrix.data[GetIndex(k, k)];
+            for (size_t m = k; m < noOfColumns; m++) {
+                umatrix.data[GetIndex(j, m)] -=
+                    lmatrix.data[GetIndex(j, k)] * umatrix.data[GetIndex(k, m)];
+            }
+        }
+    }
+}
+
+SquareMatrix& SquareMatrix::TriL() const
 {
     SquareMatrix* result(new SquareMatrix(noOfColumns));
 
     // Copy the upper triangle with the diagonal.
     for (size_t i = 0; i < noOfColumns; i++) {
         for (size_t j = i; j < noOfRows; j++)
-            result->data[result->GetIndex(j, i)] = this->GetEntry(j, i);
+            result->data[GetIndex(j, i)] = this->GetEntry(j, i);
     }
     return *result;
 }
@@ -43,12 +61,12 @@ SquareMatrix& SquareMatrix::TriU() const
     // Copy the upper triangle with the diagonal.
     for (size_t i = 0; i < noOfColumns; i++) {
         for (size_t j = 0; j <= i; j++)
-            result->data[result->GetIndex(j, i)] = this->GetEntry(j, i);
+            result->data[GetIndex(j, i)] = this->GetEntry(j, i);
     }
     return *result;
 }
 
-SquareMatrix & SquareMatrix::Identity(const int dimension)
+SquareMatrix& SquareMatrix::Identity(const int dimension)
 {
     SquareMatrix *eye(new SquareMatrix(dimension));
     for (size_t i = 0; i < dimension; i++)

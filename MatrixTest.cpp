@@ -435,18 +435,23 @@ void OtherTesting () {
 }
 
 void OtherSquareTesting() {
-    double column[4] = { 1, 2, 3, 4 };
     double row[4] = { 4, 3, 2, 1 };
-    SquareMatrix toeplitz = SquareMatrix::Toeplitz(column, row, 4);
+    SquareMatrix toeplitz = SquareMatrix::Toeplitz(row, 4);
 
-    cout << "Get upper triangle of square matrix:" << endl;
-    cout << "The original matrix = " << endl << toeplitz << endl;
-    cout << "Upper trianle = " << endl << toeplitz.TriU() << endl;
+    cout << "Get upper triangle of a square matrix:" << endl;
+    cout << "The input matrix = " << endl << toeplitz << endl;
+    cout << "Upper triangle = " << endl << toeplitz.TriU() << endl;
 
-    cout << "Get lower triangle of square matrix:" << endl;
-    cout << "The original matrix = " << endl << toeplitz << endl;
-    cout << "Upper trianle = " << endl << toeplitz.TriL() << endl;
+    cout << "Get lower triangle of a square matrix:" << endl;
+    cout << "The input matrix = " << endl << toeplitz << endl;
+    cout << "Lower triangle = " << endl << toeplitz.TriL() << endl;
 
+    cout << "LU decomposition of a square matrix:" << endl;
+    cout << "The input matrix = " << endl << toeplitz << endl;
+    SquareMatrix lmatrix(4), umatrix(4);
+    toeplitz.LU(lmatrix, umatrix);
+    cout << "Lower triangle = " << endl << lmatrix << endl;
+    cout << "Upper triangle = " << endl << umatrix << endl;
 
 }
 
