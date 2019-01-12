@@ -436,23 +436,39 @@ void OtherTesting () {
 
 void OtherSquareTesting() {
     double row[4] = { 4, 3, 2, 1 };
-    SquareMatrix toeplitz = SquareMatrix::Toeplitz(row, 4);
+    SquareMatrix input1 = SquareMatrix::Toeplitz(row, 4);
 
     cout << "Get upper triangle of a square matrix:" << endl;
-    cout << "The input matrix = " << endl << toeplitz << endl;
-    cout << "Upper triangle = " << endl << toeplitz.TriU() << endl;
+    cout << "The input matrix = " << endl << input1 << endl;
+    cout << "Upper triangle = " << endl << input1.TriU() << endl;
 
     cout << "Get lower triangle of a square matrix:" << endl;
-    cout << "The input matrix = " << endl << toeplitz << endl;
-    cout << "Lower triangle = " << endl << toeplitz.TriL() << endl;
+    cout << "The input matrix = " << endl << input1 << endl;
+    cout << "Lower triangle = " << endl << input1.TriL() << endl;
 
-    cout << "LU decomposition of a square matrix:" << endl;
-    cout << "The input matrix = " << endl << toeplitz << endl;
+    cout << "LU decomposition of a square matrix without pivoting:" << endl;
+    cout << "The input matrix = " << endl << input1 << endl;
     SquareMatrix lmatrix(4), umatrix(4);
-    toeplitz.LU(lmatrix, umatrix);
+    input1.LU(lmatrix, umatrix);
     cout << "Lower triangle = " << endl << lmatrix << endl;
     cout << "Upper triangle = " << endl << umatrix << endl;
 
+    cout << "LU decomposition of a square matrix with pivoting:" << endl;
+    cout << "The input matrix = " << endl << input1 << endl;
+    SquareMatrix pivot(4);
+    input1.LU(lmatrix, umatrix, pivot);
+    cout << "Lower triangle = " << endl << lmatrix << endl;
+    cout << "Upper triangle = " << endl << umatrix << endl;
+    cout << "Pivot = " << endl << pivot << endl;
+
+    cout << "LU decomposition of another square matrix with pivoting:" << endl;
+    double column[4] = { 1, 2, 3, 4 };
+    SquareMatrix input2 = SquareMatrix::Toeplitz(column, row, 4);
+    cout << "The input matrix = " << endl << input2 << endl;
+    input2.LU(lmatrix, umatrix, pivot);
+    cout << "Lower triangle = " << endl << lmatrix << endl;
+    cout << "Upper triangle = " << endl << umatrix << endl;
+    cout << "Pivot = " << endl << pivot << endl;
 }
 
 int main () {

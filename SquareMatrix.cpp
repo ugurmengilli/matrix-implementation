@@ -1,5 +1,5 @@
 #include "SquareMatrix.h"
-
+#include "math.h"
 
 
 SquareMatrix::SquareMatrix(const int dimension):
@@ -7,10 +7,14 @@ SquareMatrix::SquareMatrix(const int dimension):
 {
 }
 
+SquareMatrix::SquareMatrix(const int dimension, double* data) :
+    Matrix(dimension, dimension, data)
+{
+}
+
 SquareMatrix::SquareMatrix(const SquareMatrix& input) :
     Matrix(input)
 {
-
 }
 
 SquareMatrix::SquareMatrix(const Matrix& input) :
@@ -31,6 +35,39 @@ void SquareMatrix::LU(SquareMatrix& lmatrix, SquareMatrix& umatrix) const
     lmatrix = SquareMatrix::Identity(noOfColumns);
 
     for (size_t k = 0; k < noOfColumns - 1; k++) {
+        for (size_t j = k + 1; j < noOfColumns; j++) {
+            lmatrix.data[GetIndex(j, k)] =
+                umatrix.data[GetIndex(j, k)] / umatrix.data[GetIndex(k, k)];
+            for (size_t m = k; m < noOfColumns; m++) {
+                umatrix.data[GetIndex(j, m)] -=
+                    lmatrix.data[GetIndex(j, k)] * umatrix.data[GetIndex(k, m)];
+            }
+        }
+    }
+}
+
+void SquareMatrix::LU(SquareMatrix& lmatrix, SquareMatrix& umatrix, SquareMatrix& pivot) const
+{
+    // Apply the steps given in the Algorithm 2.2
+    umatrix = *this;
+    lmatrix = SquareMatrix::Identity(noOfColumns);
+    pivot   = SquareMatrix::Identity(noOfColumns);
+
+    for (size_t k = 0; k < noOfColumns - 1; k++) {
+        // Find row that has the absolute greatest element in kth column of U
+        double max = 0;
+        int index = 0;
+        for (size_t i = k; i < noOfRows; i++) {
+            if (max < abs(umatrix.GetEntry(i, k))) {
+                max = umatrix.GetEntry(i, k);   // Update max if it is less than current entry.
+                index = i;  // Keep the index since i will iterate until the end of kth row.
+            }
+        }
+        if (k != index) {
+            umatrix.ExchangeRows(k, index, k, noOfColumns - 1);
+            lmatrix.ExchangeRows(k, index, 0, k - 1);
+            pivot.ExchangeRows(k, index);
+        }
         for (size_t j = k + 1; j < noOfColumns; j++) {
             lmatrix.data[GetIndex(j, k)] =
                 umatrix.data[GetIndex(j, k)] / umatrix.data[GetIndex(k, k)];

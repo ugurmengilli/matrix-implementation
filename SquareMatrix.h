@@ -7,11 +7,13 @@ class SquareMatrix :
 {
 public:
     SquareMatrix(const int dimension);
+    SquareMatrix(const int dimension, double *data);
     SquareMatrix(const SquareMatrix& input);
     SquareMatrix(const Matrix& input);
     ~SquareMatrix();
 
     void LU(SquareMatrix& lmatrix, SquareMatrix& umatrix) const;
+    void LU(SquareMatrix& lmatrix, SquareMatrix& umatrix, SquareMatrix& pivot) const;
     SquareMatrix& TriU() const;
     SquareMatrix& TriL() const;
 
