@@ -14,6 +14,7 @@ public:
 
     void LU(SquareMatrix& lmatrix, SquareMatrix& umatrix) const;
     void LU(SquareMatrix& lmatrix, SquareMatrix& umatrix, SquareMatrix& pivot) const;
+    Matrix& Solve(const Matrix& B) const;
     SquareMatrix& TriU() const;
     SquareMatrix& TriL() const;
 

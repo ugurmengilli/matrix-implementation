@@ -469,6 +469,27 @@ void OtherSquareTesting() {
     cout << "Lower triangle = " << endl << lmatrix << endl;
     cout << "Upper triangle = " << endl << umatrix << endl;
     cout << "Pivot = " << endl << pivot << endl;
+
+    cout << "Solve the system of linear equations:" << endl;
+    double system[16] = { 2, 4, 8, 6, 1, 3, 7, 7, 1, 3, 9, 9, 0, 1, 5, 8 };
+    double bdata[4] = { 1, 0, 0, 0 };
+    SquareMatrix A(4, system);
+    Matrix b(4, 1, bdata);
+    cout << "The system matrix A = " << endl << A << endl;
+    cout << "The matrix b =" << endl << b << endl;
+    cout << "The solution x = " << endl << A.Solve(b) << endl;
+
+    cout << "LEAST SQUARES SOLUTION:" << endl;
+    double system2[12] = { 2, 4, 8, 6, 1, 3, 7, 7, 0, 1, 5, 8 };
+    Matrix Amn(4, 3, system2);
+    cout << "The system matrix A = " << endl << Amn << endl;
+    cout << "The matrix b =" << endl << b << endl;
+    Matrix At = Matrix::Transpose(Amn);
+    SquareMatrix Anew(At * Amn);
+    Matrix bnew(At * b);
+    cout << "The NEW system matrix A = " << endl << Anew << endl;
+    cout << "The NEW matrix b =" << endl << bnew << endl;
+    cout << "The solution x = " << endl << Anew.Solve(bnew) << endl;
 }
 
 int main () {

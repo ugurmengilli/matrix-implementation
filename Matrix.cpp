@@ -53,9 +53,9 @@ Matrix& Matrix::operator*(const Matrix& rhs) const
 {
     Matrix *result(new Matrix(noOfRows, rhs.noOfColumns));
 
-    for (size_t i = 0; i < noOfRows; i++) {
-        for (size_t j = 0; j < rhs.noOfColumns; j++) {
-            for (size_t k = 0; k < rhs.noOfRows; k++) {
+    for (int i = 0; i < noOfRows; i++) {
+        for (int j = 0; j < rhs.noOfColumns; j++) {
+            for (int k = 0; k < rhs.noOfRows; k++) {
                 result->data[j * result->noOfRows + i] +=
                     data[k * noOfRows + i] * rhs.data[j * rhs.noOfRows + k];
             }
@@ -97,8 +97,8 @@ ostream& operator<<(ostream& os, const Matrix& m)
     // Set display precision of the elements
     os.precision(4);
     // Print the column-major matrix in ordinary format
-    for (size_t i = 0; i < m.noOfRows; i++) {
-        for (size_t j = 0; j < m.noOfColumns; j++) {
+    for (int i = 0; i < m.noOfRows; i++) {
+        for (int j = 0; j < m.noOfColumns; j++) {
             os << fixed << m.data[i + j * m.noOfRows] << '\t';
         }
         os << endl;

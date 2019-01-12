@@ -34,11 +34,11 @@ void SquareMatrix::LU(SquareMatrix& lmatrix, SquareMatrix& umatrix) const
     umatrix = *this;
     lmatrix = SquareMatrix::Identity(noOfColumns);
 
-    for (size_t k = 0; k < noOfColumns - 1; k++) {
-        for (size_t j = k + 1; j < noOfColumns; j++) {
+    for (int k = 0; k < noOfColumns - 1; k++) {
+        for (int j = k + 1; j < noOfColumns; j++) {
             lmatrix.data[GetIndex(j, k)] =
                 umatrix.data[GetIndex(j, k)] / umatrix.data[GetIndex(k, k)];
-            for (size_t m = k; m < noOfColumns; m++) {
+            for (int m = k; m < noOfColumns; m++) {
                 umatrix.data[GetIndex(j, m)] -=
                     lmatrix.data[GetIndex(j, k)] * umatrix.data[GetIndex(k, m)];
             }
@@ -53,11 +53,11 @@ void SquareMatrix::LU(SquareMatrix& lmatrix, SquareMatrix& umatrix, SquareMatrix
     lmatrix = SquareMatrix::Identity(noOfColumns);
     pivot   = SquareMatrix::Identity(noOfColumns);
 
-    for (size_t k = 0; k < noOfColumns - 1; k++) {
+    for (int k = 0; k < noOfColumns - 1; k++) {
         // Find row that has the absolute greatest element in kth column of U
         double max = 0;
         int index = 0;
-        for (size_t i = k; i < noOfRows; i++) {
+        for (int i = k; i < noOfRows; i++) {
             if (max < abs(umatrix.GetEntry(i, k))) {
                 max = umatrix.GetEntry(i, k);   // Update max if it is less than current entry.
                 index = i;  // Keep the index since i will iterate until the end of kth row.
@@ -68,10 +68,10 @@ void SquareMatrix::LU(SquareMatrix& lmatrix, SquareMatrix& umatrix, SquareMatrix
             lmatrix.ExchangeRows(k, index, 0, k - 1);
             pivot.ExchangeRows(k, index);
         }
-        for (size_t j = k + 1; j < noOfColumns; j++) {
+        for (int j = k + 1; j < noOfColumns; j++) {
             lmatrix.data[GetIndex(j, k)] =
                 umatrix.data[GetIndex(j, k)] / umatrix.data[GetIndex(k, k)];
-            for (size_t m = k; m < noOfColumns; m++) {
+            for (int m = k; m < noOfColumns; m++) {
                 umatrix.data[GetIndex(j, m)] -=
                     lmatrix.data[GetIndex(j, k)] * umatrix.data[GetIndex(k, m)];
             }
@@ -79,13 +79,53 @@ void SquareMatrix::LU(SquareMatrix& lmatrix, SquareMatrix& umatrix, SquareMatrix
     }
 }
 
+Matrix& SquareMatrix::Solve(const Matrix& B) const
+{
+    // Ensure the dimensions of the B matrix
+    if (B.GetNoOfRows() != noOfRows || B.GetNoOfColumns() != 1)
+        throw exception();
+
+    // First decompose the A matrix
+    SquareMatrix U(noOfColumns), L(noOfColumns), P(noOfColumns);
+    LU(L, U, P);
+
+    // Solve the new problem LUx = Pb. First solve Ly = Pb and then Ux = y.
+    // Algorithm 3.1 gives the solution of Ly = Pb.
+    Matrix Pb(P * B);
+    double *y = new double[noOfRows];   // Column matrix
+
+    y[0] = Pb.GetEntry(0, 0) / L.GetEntry(0, 0);
+    for (int k = 1; k < noOfRows; k++) {
+        y[k] = Pb.GetEntry(k, 0);
+
+        for (int i = 0; i < k; i++)
+            y[k] -= L.GetEntry(k, i) * y[i];
+        
+        y[k] /= L.GetEntry(k, k);
+    }
+
+    // Algorithm 3.2 gives the solution of Ux = y
+    double *x = new double[noOfRows];   // Column matrix
+
+    x[noOfRows - 1] = y[noOfRows - 1] / U.GetEntry(noOfRows - 1, noOfRows - 1);
+    for (int k = noOfRows - 2; k >= 0; k--) {
+        x[k] = y[k];
+
+        for (int i = 1; i < noOfRows; i++)
+            x[k] -= U.GetEntry(k, k + i) * x[k + i];
+
+        x[k] /= U.GetEntry(k, k);
+    }
+    return *(new Matrix(noOfRows, 1, x));
+}
+
 SquareMatrix& SquareMatrix::TriL() const
 {
     SquareMatrix* result(new SquareMatrix(noOfColumns));
 
     // Copy the upper triangle with the diagonal.
-    for (size_t i = 0; i < noOfColumns; i++) {
-        for (size_t j = i; j < noOfRows; j++)
+    for (int i = 0; i < noOfColumns; i++) {
+        for (int j = i; j < noOfRows; j++)
             result->data[GetIndex(j, i)] = this->GetEntry(j, i);
     }
     return *result;
@@ -96,8 +136,8 @@ SquareMatrix& SquareMatrix::TriU() const
     SquareMatrix* result(new SquareMatrix(noOfColumns));
 
     // Copy the upper triangle with the diagonal.
-    for (size_t i = 0; i < noOfColumns; i++) {
-        for (size_t j = 0; j <= i; j++)
+    for (int i = 0; i < noOfColumns; i++) {
+        for (int j = 0; j <= i; j++)
             result->data[GetIndex(j, i)] = this->GetEntry(j, i);
     }
     return *result;
